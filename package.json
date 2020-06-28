@@ -1,20 +1,49 @@
 {
-  "scripts": {
-    "start": "snowpack dev",
-    "build": "snowpack build",
-    "test": "jest",
-    "format": "prettier --write \"src/**/*.{js,jsx}\"",
-    "lint": "prettier --check \"src/**/*.{js,jsx}\""
+  "name": "goodthing",
+  "description": "For making new Preact projects with server-side rendering, es modules and NO compilation during development",
+  "version": "1.0.0",
+  "author": "Kynan Stewart",
+  "bugs": {
+    "url": "https://github.com/k7n4n5t3w4rt/goodthing/issues"
   },
   "dependencies": {
-    "preact": "^10.4.1"
+    "finalhandler": "^1.1.2",
+    "history": "^4.10.1",
+    "htm": "^3.0.4",
+    "preact": "^10.4.1",
+    "preact-render-to-string": "^5.1.6",
+    "preact-router": "^3.2.1",
+    "serve-static": "^1.14.1",
+    "simplestyle-js": "github:k7n4n5t3w4rt/simplestyle#dist"
   },
   "devDependencies": {
     "@snowpack/app-scripts-preact": "^1.4.0",
     "@testing-library/jest-dom": "^5.5.0",
     "@testing-library/preact": "^1.0.2",
+    "browser-sync": "^2.26.7",
+    "faucet": "0.0.1",
+    "fixpack": "^3.0.6",
+    "flow-bin": "^0.123.0",
+    "glob": "^7.1.6",
     "jest": "^25.4.0",
+    "nodemon": "^2.0.2",
     "prettier": "^2.0.0",
+    "rollup-plugin-node-polyfills": "^0.2.1",
+    "should": "^13.2.3",
     "snowpack": "^2.5.0"
+  },
+  "scripts": {
+    "browsersync": "browser-sync start --server --files \"./\"",
+    "build": "snowpack build",
+    "fixpack": "fixpack",
+    "flow": "flow check",
+    "format": "prettier --write \"src/**/*.{js,jsx}\"",
+    "generate": "node --no-warnings server/static_generate.js",
+    "lint": "prettier --check \"src/**/*.{js,jsx}\"",
+    "snowpack": "snowpack install",
+    "snowpack-old": "snowpack install --clean && grep -r -l _commonjsHelpers web_modules | xargs sed -i '' s/_commonjsHelpers/commonjshelpers/g $i && mv web_modules/common/_commonjsHelpers-6a48b99e.js web_modules/common/commonjshelpers-6a48b99e.js",
+    "start": "node server/index.js",
+    "test": "node --no-warnings server/testyrunner.js | faucet",
+    "unbuild": "node --no-warnings server/static_clear.js"
   }
 }
