@@ -1,4 +1,4 @@
-# es-module-preact-boilerplate
+# goodthing
 
 No WebPack. No build. Built-in static site generation.
 
@@ -7,7 +7,7 @@ No WebPack. No build. Built-in static site generation.
 [1] Clone the repo
 
 ```
-git clone git@github.com:k7n4n5t3w4rt/es-module-preact-boilerplate.git mysite
+git clone git@github.com:k7n4n5t3w4rt/goodthing.git mysite
 ```
 
 [2] Remove `/.git`
@@ -64,20 +64,19 @@ npm run browsersync
 
 [11] When you change your `<Routes>`, clean up your static files
 
- ```
- npm run unbuild
- ```
+```
+npm run unbuild
+```
 
- [12] Local cache
+[12] Local cache
 
- You can keep the static files updated as you access the different routes during development. This is a bit like a cache. Just change the setting in `/server/static_config.js` to something like 10 seconds
+You can keep the static files updated as you access the different routes during development. This is a bit like a cache. Just change the setting in `/server/static_config.js` to something like 10 seconds
 
- ```
- ...
- export const cacheTtl /*: number */ = 10; // Seconds
- ...
- ```
-
+```
+...
+export const cacheTtl /*: number */ = 10; // Seconds
+...
+```
 
 ## Preact w/ ES Modules
 
@@ -127,4 +126,3 @@ import htm from '../web_modules/htm.js'
 [1] Get the build script to tell Snowpack put production versions of packages into the `dist/web_manifest`
 [2] Maybe use [this Babel plugin](https://github.com/developit/htm/tree/master/packages/babel-plugin-htm) to compile the `htm` module out of existence.
 [3] The "Testy" test runner needs an "only" option
-
