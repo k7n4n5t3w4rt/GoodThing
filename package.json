@@ -45,5 +45,6 @@
     "start": "node server/index.js",
     "test": "node --no-warnings server/testyrunner.js | faucet",
     "unbuild": "node --no-warnings server/static_clear.js"
-  }
+  },
+  "type": "module"
 }
