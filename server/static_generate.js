@@ -9,20 +9,19 @@ import typeof { appPaths as AppPathsType } from "./static_config.js";
 import RequestPromiseType from "./request_promise.js";
 */
 
-const copyDir = function (src, dest) {
+const copyDir = function (src, dest = "./") {
+  let publicDest /*: string */ = "";
   const files = fs.readdirSync(src);
   for (let i = 0; i < files.length; i++) {
     const current = fs.lstatSync(path.join(src, files[i]));
+    publicDest = "./" + path.join(dest, files[i]);
+    if (!fs.existsSync(path.dirname(publicDest))) {
+      fs.mkdirSync(path.dirname(publicDest), { recursive: true });
+    }
     if (current.isDirectory()) {
-      copyDir(
-        path.join(src, files[i]),
-        "./public/" + path.join(dest, files[i]),
-      );
+      copyDir(path.join(src, files[i]), publicDest);
     } else {
-      fs.copyFileSync(
-        path.join(src, files[i]),
-        "./public/" + path.join(dest, files[i]),
-      );
+      fs.copyFileSync(path.join(src, files[i]), publicDest);
     }
   }
 };

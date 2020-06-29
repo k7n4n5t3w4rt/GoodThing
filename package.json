@@ -33,7 +33,7 @@
     "snowpack": "^2.5.0"
   },
   "scripts": {
-    "browsersync": "browser-sync start --server --files \"./\"",
+    "browsersync": "browser-sync start --server --files \"./public/\"",
     "build": "snowpack build",
     "fixpack": "fixpack",
     "flow": "flow check",
