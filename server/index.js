@@ -30,7 +30,6 @@ import typeof {
   writeToCache as WriteToCacheType
 } from "./static.js";
 import typeof AppType from "../js/App.js";
-import typeof YabrType from "../web_modules/yabr.js";
 import typeof RenderType from "../web_modules/preact-render-to-string.js";
 import typeof { h as HType } from "../web_modules/preact.js";
 import typeof HtmType from "../web_modules/htm.js";
@@ -110,7 +109,7 @@ const renderToString = (url /*: string */) /*: string */ => {
 
 const server = http.createServer(requestHandler);
 
-server.listen(PORT, err => {
+server.listen(PORT, (err) => {
   if (err) {
     return console.log("something bad happened", err);
   }

@@ -10,7 +10,7 @@ export const readFromCache = (
   cacheTtl /*: number */,
   force /*: boolean */ = false,
 ) /*: string | false */ => {
-  const cachedFilePath = `.${url}/index.html`.replace("//", "/");
+  const cachedFilePath = `./public${url}/index.html`.replace("//", "/");
   const fileExists = fs.existsSync(cachedFilePath);
   if (fileExists) {
     const stats = fs.statSync(cachedFilePath);
@@ -30,7 +30,7 @@ export const writeToCache = (
   url /*: string */,
   renderedOutput /*: string */,
 ) /*:  Promise<boolean> */ => {
-  const filePath /*: string */ = `.${url}/index.html`.replace("//", "/");
+  const filePath /*: string */ = `./public${url}/index.html`.replace("//", "/");
   if (!fs.existsSync(path.dirname(filePath))) {
     fs.mkdirSync(path.dirname(filePath), { recursive: true });
   }
@@ -49,48 +49,6 @@ export const writeToCache = (
       console.error(e);
       return false;
     });
-};
-
-export const restoreIndexFile = (
-  goodthingElement /*: string */,
-) /*:  Promise<boolean> */ => {
-  const indexFilePath /*: string */ = "./index.html";
-  if (fs.existsSync(indexFilePath)) {
-    const cachedFileContents = readFromCache("/", 0, true) || "";
-    let restoredIndexFileContents = cachedFileContents;
-    if (cachedFileContents !== "") {
-      const gtStartElement = `<${goodthingElement} id="goodthing" data-goodthing>`;
-      const gtStartElementRe = `<${goodthingElement} id="goodthing" data-goodthing>`;
-      const gtEndElement = `</${goodthingElement} data-goodthing>`;
-      const gtEndElementRe = `<\\/${goodthingElement} data-goodthing>`;
-      const reString = `${gtStartElementRe}[\\s\\S]*${gtEndElementRe}`;
-      const re = new RegExp(reString, "g");
-      restoredIndexFileContents =
-        cachedFileContents.replace(
-          re,
-          `${gtStartElement}<!-- GOODTHING -->${gtEndElement}`,
-        ) || "";
-      if (restoredIndexFileContents !== "") {
-        return openFile(indexFilePath)
-          .then((fd /*: number */) /*: Promise<boolean> */ => {
-            return writeFile(fd, restoredIndexFileContents)
-              .then(() /*: boolean */ => {
-                return true;
-              })
-              .catch((e /*: Error */) /*: boolean */ => {
-                console.error(e);
-                return false;
-              });
-          })
-          .catch((e /*: Error */) /*: boolean */ => {
-            console.error(e);
-            return false;
-          });
-      }
-    }
-  }
-  // If something has gone wrong, reject
-  return Promise.reject(false);
 };
 
 export const openFile = (filePath /*: string */) /*: Promise<number> */ => {
@@ -130,35 +88,16 @@ export const writeFile = (
   });
 };
 
-export const clearFromCache = (url /*: string */) /*: Promise<boolean> */ => {
-  const [, topLevelDirectory] = url.split("/");
-  return new Promise((resolve, reject) /*: void */ => {
-    // Flow doesn't recognise the new signature for
-    // fs.rmdir with the recursive option
-    const deleteDir = `./${topLevelDirectory}`;
-    // Don't do it. Don't recursively delete everything
-    if (deleteDir === "/" || deleteDir === "./" || deleteDir === "../") {
-      throw new Error("This is, potentially, a massive problem.");
-    } else if (deleteDir === "./") {
-      // Not so much of a problem but we have to
-      // work out what to do with ./index.html
-    } else {
-      // Ok, continue...
-      fs.rmdir(
-        deleteDir,
-        // $FlowFixMe
-        {
-          recursive: true,
-        },
-        // $FlowFixMe
-        e => {
-          if (e) {
-            reject(e);
-          } else {
-            resolve(true);
-          }
-        },
-      );
-    }
-  });
+export const clearCache = () /*: boolean */ => {
+  const publicPath = "public";
+  fs.rmdirSync(
+    publicPath,
+    // $FlowFixMe
+    { recursive: true },
+  );
+  // $FlowFixMe
+  if (!fs.existsSync(publicPath)) {
+    fs.mkdirSync(publicPath);
+  }
+  return true;
 };

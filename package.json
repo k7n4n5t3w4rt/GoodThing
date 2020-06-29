@@ -44,7 +44,7 @@
     "snowpack-old": "snowpack install --clean && grep -r -l _commonjsHelpers web_modules | xargs sed -i '' s/_commonjsHelpers/commonjshelpers/g $i && mv web_modules/common/_commonjsHelpers-6a48b99e.js web_modules/common/commonjshelpers-6a48b99e.js",
     "start": "node server/index.js",
     "test": "node --no-warnings server/testyrunner.js | faucet",
-    "unbuild": "node --no-warnings server/static_clear.js"
+    "ungenerate": "node --no-warnings server/static_clear.js"
   },
   "type": "module"
 }
