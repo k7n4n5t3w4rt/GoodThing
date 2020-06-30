@@ -41,6 +41,7 @@ fs.copyFileSync("tile.png", "./public/tile.png");
 copyDir("js", "./public/js");
 copyDir("img", "./public/img");
 copyDir("css", "./public/css");
+copyDir("web_modules", "./public/web_modules");
 
 appPaths().forEach((url /*: string */) /*: Promise<any> */ =>
   requestPromise({
