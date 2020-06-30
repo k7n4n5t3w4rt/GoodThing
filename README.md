@@ -1,6 +1,6 @@
 # goodthing
 
-No WebPack. No build. Built-in static site generation.
+No WebPack. No compiling during development.
 
 ## Getting Started
 
@@ -51,10 +51,10 @@ Your code here.
 [8] Generate your static site for GitHub pages, S3, etc.
 
 ```
-npm run build
+npm run generate
 ```
 
-[9] Test it locally with Browsersync
+[9] Test it locally on port :3000 with Browsersync
 
 ```
 npm run browsersync
@@ -65,7 +65,7 @@ npm run browsersync
 [11] When you change your `<Routes>`, clean up your static files
 
 ```
-npm run unbuild
+npm run ungenerate
 ```
 
 [12] Local cache
@@ -80,8 +80,6 @@ export const cacheTtl /*: number */ = 10; // Seconds
 
 ## Preact w/ ES Modules
 
-The React peoples are still [messing around deciding what to do about es6 modules](https://github.com/facebook/react/issues/11503), which is pretty weird in 2020.
-
 I'm using Preact because it already has ES modules and [Snowpack](https://www.snowpack.dev/) to copy them up to the `/web_modules` directory for accessibility from the front end.
 
 ```
@@ -89,24 +87,13 @@ I'm using Preact because it already has ES modules and [Snowpack](https://www.sn
 
 	...
 
-    "snowpack": "snowpack install --clean",
+    "snowpack": "snowpack install",
 
 	...
 
   },
 
   ...
-
-  "snowpack": {
-    "webDependencies": [
-      "htm",
-      "preact",
-      "preact/hooks"
-	  "preact-render-to-string"
-    ],
-    "dedupe": []
-  },
-```
 
 Importing them in the client component scripts from `/web_modules`:
 
