@@ -1,4 +1,4 @@
-# goodthing
+# GoodThing
 
 No WebPack. No compiling during development.
 
@@ -48,7 +48,7 @@ npm run test
 Your code here.
 ```
 
-[8] Generate your static site for GitHub pages, S3, etc.
+[8] Generate your static site in the `/public` folder for GitHub pages, S3, etc.
 
 ```
 npm run generate
