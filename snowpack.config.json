@@ -1,0 +1,16 @@
+{
+  "extends": "@snowpack/app-scripts-preact",
+  "scripts": {},
+  "plugins": [],
+  "exclude": ["**/*"],
+  "install": [
+    "history",
+    "htm",
+    "preact",
+    "preact/hooks",
+    "preact-render-to-string",
+    "preact-router",
+    "should/as-function.js",
+    "simplestyle-js"
+  ]
+}

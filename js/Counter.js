@@ -2,11 +2,15 @@
 import { h, render } from "../web_modules/preact.js";
 import { useState } from "../web_modules/preact/hooks.js";
 import htm from "../web_modules/htm.js";
-import ss from "../web_modules/simplestyle-js.js";
+import {
+  rawStyles,
+  createStyles,
+  setSeed,
+} from "../web_modules/simplestyle-js.js";
 
 // Flow
 /*::
-import typeof { createStyles as CreateStylesType, rawStyles as RawStylesType } from "../web_modules/simplestyle-js.js";
+import typeof { createStyles as CreateStylesType, rawStyles as RawStylesType, setSeed as SetSeedType } from "../web_modules/simplestyle-js.js";
 import typeof HtmType from "../web_modules/htm.js";
 import typeof { UseStateType } from "../web_modules/preact/hooks.js";
 import typeof {
@@ -16,7 +20,7 @@ import typeof {
 */
 
 const html /*: HtmType */ = htm.bind(h);
-ss.rawStyles({
+rawStyles({
   html: {
     height: "100%",
   },
@@ -25,32 +29,30 @@ ss.rawStyles({
   },
 });
 
-const [styles] /*: CreateStylesType */ = ss.createStyles(
-  {
-    container: {
-      fontFamily: "sans-serif",
-      textAlign: "center",
-      height: "100%",
-      display: "flex",
-      flexDirection: "column",
-      justifyContent: "center",
-    },
-    heading: {
-      fontSize: "2em",
-      color: "gold",
-    },
-    counter: {
-      fontSize: "7em",
-      color: "silver",
-      lineHeight: "0.05em",
-    },
-    buttons: {
-      fontSize: "4em",
-    },
+setSeed(1234);
+
+const [styles] /*: CreateStylesType */ = createStyles({
+  container: {
+    fontFamily: "sans-serif",
+    textAlign: "center",
+    height: "100%",
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "center",
   },
-  null,
-  "myuniqueid",
-);
+  heading: {
+    fontSize: "2em",
+    color: "gold",
+  },
+  counter: {
+    fontSize: "7em",
+    color: "silver",
+    lineHeight: "0.05em",
+  },
+  buttons: {
+    fontSize: "4em",
+  },
+});
 
 /*::
 type Props = {
