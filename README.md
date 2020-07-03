@@ -95,7 +95,10 @@ I'm using Preact because it already has ES modules and [Snowpack](https://www.sn
 
   ...
 
+```
+
 Importing them in the client component scripts from `/web_modules`:
+
 
 ```
 import { h, render } from '../web_modules/preact.js'
@@ -110,6 +113,5 @@ import htm from '../web_modules/htm.js'
 
 ## To Do
 
-[1] Get the build script to tell Snowpack put production versions of packages into the `dist/web_manifest`
-[2] Maybe use [this Babel plugin](https://github.com/developit/htm/tree/master/packages/babel-plugin-htm) to compile the `htm` module out of existence.
-[3] The "Testy" test runner needs an "only" option
+[1] A production build with Snowpack2
+[2] The "Testy" test runner needs an "only" option
