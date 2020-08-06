@@ -262,10 +262,3 @@ textarea {
     page-break-after: avoid;
   }
 }
-
-/*
-    * Custom
-    */
-#goodthing {
-  height: 100%;
-}

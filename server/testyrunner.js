@@ -4,7 +4,7 @@ import { exec } from "child_process";
 
 let counter /*: number */ = 0;
 const testyExecs /*: Array<Promise<Array<string>>> */ = [];
-glob("**/*.testy.js", function(e, testies) {
+glob("**/*.testy.js", function (e, testies) {
   testies.forEach((testyFilePath /*: string */) /*: void */ => {
     testyExecs.push(
       new Promise((resolve, reject) => {
