@@ -13,13 +13,8 @@ import typeof {
 import typeof AppType from "./App.js";
 */
 
-const html /*: HtmType */ = htm.bind(h);
+const html = htm.bind(h);
 
 // NOTE: `hydrate()` doesn't work with `simplestyle-js` - the
 // class names don't match when the page is hydrated
-hydrate(
-  html`
-    <${App} />
-  `,
-  document.getElementById("goodthing"),
-);
+hydrate(html` <${App} /> `, document.getElementById("goodthing"));
