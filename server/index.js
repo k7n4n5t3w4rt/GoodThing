@@ -1,4 +1,5 @@
 // @flow
+import conf from "./config.js";
 import http from "http";
 import fs from "fs";
 import finalHandler from "finalhandler";
@@ -14,33 +15,8 @@ import {
   appPaths,
   unCachedUrls,
 } from "./static_config.js";
-
-const html /*: HtmType */ = htm.bind(h);
-
 // Flow
-/*::
-import typeof {
-  goodthingElement as GoodthingElementType,
-  cacheTtl as CacheTtlType,
-  appPaths as AppPathsType,
-  unCachedUrls as UnCachedUrlsType
-} from "./static_config.js";
-import typeof {
-  readFromCache as ReadFromCacheType,
-  writeToCache as WriteToCacheType
-} from "./static.js";
-import typeof AppType from "../js/App.js";
-import typeof RenderType from "../web_modules/preact-render-to-string.js";
-import typeof { h as HType } from "../web_modules/preact.js";
-import typeof HtmType from "../web_modules/htm.js";
-import typeof ServeStaticType from "serve-static";
-import typeof FinalHandlerType from "finalhandler";
-import typeof FsType from "fs";
-import typeof HttpType from "http";
-*/
-
-// CONFIG
-const PORT /*: number */ = 4000;
+const html = htm.bind(h);
 
 var serveAsStatic = serveStatic(".", {
   index: false,
@@ -61,7 +37,6 @@ const requestHandler = (req, res) => {
     forceCache = true;
   }
   if (urlPath.match(/.+\..+$/) !== null) {
-    // console.log("Static: ", urlPath);
     serveAsStatic(req, res, finalHandler(req, res));
   } else if (
     cacheTtl > 0 &&
@@ -70,49 +45,58 @@ const requestHandler = (req, res) => {
   ) {
     const output = readFromCache(urlPath, cacheTtl);
     if (output !== false) {
-      console.log("Cache: ", urlPath);
+      // console.log("Cache: ", urlPath);
       res.end(output);
     } else {
       const output = renderToString(urlPath);
       writeToCache(urlPath, output);
-      console.log("Rendered: ", urlPath);
+      // console.log("Rendered: ", urlPath);
       res.end(output);
     }
   } else {
     const output = renderToString(urlPath);
     if (forceCache === true) {
       writeToCache(urlPath, output);
-      console.log("Cached: ", urlPath);
+      // console.log("Cached: ", urlPath);
     }
-    console.log("Rendered: ", urlPath);
+    // console.log("Rendered: ", urlPath);
     res.end(output);
   }
 };
 
 const renderToString = (url /*: string */) /*: string */ => {
   const index /*: string */ = fs.readFileSync("./index.html", "utf8");
-  // [1] Swap the placeholder copy with the rendered output
-  const gtStartElement = `<${goodthingElement} id="goodthing" data-goodthing>`;
-  const gtStartElementRe = `<${goodthingElement} id="goodthing" data-goodthing>`;
-  const gtEndElement = `</${goodthingElement} data-goodthing>`;
-  const gtEndElementRe = `<\\/${goodthingElement} data-goodthing>`;
-  const reString = `${gtStartElementRe}[\\s\\S]*${gtEndElementRe}`;
-  const re = new RegExp(reString, "g");
-  let renderedContent = index.replace(
-    re,
-    `${gtStartElement}` +
-      render(App({ url }), {}, { pretty: true }) +
-      `${gtEndElement}`,
-  );
+  let renderedContent = index;
+
+  // Server-side rendering
+  if (conf.NODE_ENV !== "development") {
+    // [1] Swap the placeholder copy with the rendered output
+    const gtStartElement = `<${goodthingElement} id="goodthing" data-goodthing>`;
+    const gtStartElementRe = `<${goodthingElement} id="goodthing" data-goodthing>`;
+    const gtEndElement = `</${goodthingElement} data-goodthing>`;
+    const gtEndElementRe = `<\\/${goodthingElement} data-goodthing>`;
+    const reString = `${gtStartElementRe}[\\s\\S]*${gtEndElementRe}`;
+    const re = new RegExp(reString, "g");
+    renderedContent = index.replace(
+      re,
+      `${gtStartElement}` +
+        render(App({ url }), {}, { pretty: true }) +
+        `${gtEndElement}`,
+    );
+  }
+
+  // Do the ENVs
+  const re_env_NODE_ENV = new RegExp("_NODE_ENV_", "g");
+  renderedContent = renderedContent.replace(re_env_NODE_ENV, conf.NODE_ENV);
   return renderedContent;
 };
 
 const server = http.createServer(requestHandler);
 
-server.listen(PORT, (err) => {
+server.listen(conf.PORT, (err) => {
   if (err) {
     return console.log("something bad happened", err);
   }
 
-  console.log(`server is listening on ${PORT}`);
+  console.log(`server is listening on ${conf.PORT}`);
 });
