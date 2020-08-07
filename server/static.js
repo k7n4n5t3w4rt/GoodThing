@@ -5,7 +5,7 @@ import path from "path";
 import typeof FsType from "fs";
  */
 
-export const readFromCache = (
+const readFromCache = (
   url /*: string */,
   cacheTtl /*: number */,
   force /*: boolean */ = false,
@@ -26,7 +26,7 @@ export const readFromCache = (
   }
 };
 
-export const writeToCache = (
+const writeToCache = (
   url /*: string */,
   renderedOutput /*: string */,
 ) /*:  Promise<boolean> */ => {
@@ -66,7 +66,7 @@ export const openFile = (filePath /*: string */) /*: Promise<number> */ => {
   });
 };
 
-export const writeFile = (
+const writeFile = (
   fd /*: number */,
   renderedOutput /*: string */,
 ) /*: Promise<boolean> */ => {
@@ -88,7 +88,7 @@ export const writeFile = (
   });
 };
 
-export const clearCache = () /*: boolean */ => {
+const clearCache = () /*: boolean */ => {
   const publicPath = "public";
   fs.rmdirSync(
     publicPath,
@@ -100,4 +100,10 @@ export const clearCache = () /*: boolean */ => {
     fs.mkdirSync(publicPath);
   }
   return true;
+};
+
+export default {
+  writeToCache,
+  readFromCache,
+  clearCache,
 };
