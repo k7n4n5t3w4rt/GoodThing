@@ -1,25 +1,26 @@
 // @flow
 import { h, render } from "../web_modules/preact.js";
-import { useState } from "../web_modules/preact/hooks.js";
+import { useContext } from "../web_modules/preact/hooks.js";
 import htm from "../web_modules/htm.js";
 import {
   rawStyles,
   createStyles,
   setSeed,
 } from "../web_modules/simplestyle-js.js";
+import { AppContext } from "./AppContext.js";
 
-// Flow
-/*::
-import typeof { createStyles as CreateStylesType, rawStyles as RawStylesType, setSeed as SetSeedType } from "../web_modules/simplestyle-js.js";
-import typeof HtmType from "../web_modules/htm.js";
-import typeof { UseStateType } from "../web_modules/preact/hooks.js";
-import typeof {
-  h as HType,
-  render as RenderType,
-} from "../web_modules/preact.js";
-*/
+const html = htm.bind(h);
+const seed /*: number */ = parseInt(
+  "counter".split("").reduce(
+    (acc /*: string */, letter /*: string */) /*: string */ => {
+      const letterCode = letter.toLowerCase().charCodeAt(0) - 97 + 1;
+      return acc + letterCode.toString();
+    },
+    "",
+  ),
+);
+setSeed(seed);
 
-const html /*: HtmType */ = htm.bind(h);
 rawStyles({
   html: {
     height: "100%",
@@ -29,9 +30,7 @@ rawStyles({
   },
 });
 
-setSeed(1234);
-
-const [styles] /*: CreateStylesType */ = createStyles({
+const [styles] = createStyles({
   container: {
     fontFamily: "sans-serif",
     textAlign: "center",
@@ -47,10 +46,9 @@ const [styles] /*: CreateStylesType */ = createStyles({
   counter: {
     fontSize: "7em",
     color: "silver",
-    lineHeight: "0.05em",
   },
   buttons: {
-    fontSize: "4em",
+    fontSize: "2em",
   },
 });
 
@@ -59,8 +57,8 @@ type Props = {
   count: typeof Number
 };
 */
-const Counter = (props /*: Props */) /*: HtmType */ => {
-  const [count, setCount] = useState(parseInt(props.count));
+const Counter = (props /*: Props */) => {
+  const [state /*: AppState */, setState] = useContext(AppContext);
   // console.log(props.count.isInteger());
   return html`
     <div className="${styles.container}">
@@ -69,16 +67,24 @@ const Counter = (props /*: Props */) /*: HtmType */ => {
         No build step.
       </h1>
       <div>
-        <h2 className="${styles.counter}">${count}</h2>
+        <h2 className="${styles.counter}">${state.count}</h2>
         <button
           className="${styles.buttons}"
-          onClick=${(e) => setCount(count - 1)}
+          onClick=${(e) => {
+            let count = state.count || 1;
+            count--;
+            setState({ ...state, ...{ count } });
+          }}
         >
           -
         </button>
         <button
           className="${styles.buttons}"
-          onClick=${(e) => setCount(count + 1)}
+          onClick=${(e) => {
+            let count = state.count || 1;
+            count++;
+            setState({ ...state, ...{ count } });
+          }}
         >
           +
         </button>

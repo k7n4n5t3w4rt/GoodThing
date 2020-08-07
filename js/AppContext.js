@@ -1,4 +1,5 @@
 // @flow
+import conf from "./config.js";
 import { h, render, createContext } from "../web_modules/preact.js";
 import { useState } from "../web_modules/preact/hooks.js";
 import htm from "../web_modules/htm.js";
