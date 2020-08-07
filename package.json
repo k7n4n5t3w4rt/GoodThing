@@ -32,7 +32,7 @@
     "wait-on": "^5.1.0"
   },
   "scripts": {
-    "browsersync": "browser-sync start --server --files \"./public/\"",
+    "browsersync": "browser-sync start --server 'public'",
     "browsersync:proxy": "browser-sync start --proxy 'localhost:4000' --files \".\"",
     "build": "snowpack build",
     "cypress:open": "cypress open",
@@ -48,7 +48,8 @@
     "flow": "flow check",
     "format": "prettier --write \"src/**/*.{js,jsx}\"",
     "generate:clear": "node --no-warnings server/static_clear.js",
-    "generate:run": "node --no-warnings server/static_generate_run.js",
+    "generate": "node --no-warnings server/static_generate_run.js",
+    "generate:run": "npm run generate && npm run browsersync",
     "lint": "prettier --check \"src/**/*.{js,jsx}\"",
     "snowpack": "snowpack install",
     "start": "node server/index.js",
