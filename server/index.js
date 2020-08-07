@@ -28,12 +28,14 @@ const requestHandler = (req, res) => {
   // to `preact-router` when `/js/App.js` is being
   // rendered server-side
   const [urlPath /*: string */, queryString /*: string */] = req.url.split("?");
+  let generate /*: boolean */ = false;
   let generateValue /*: string */ = "";
   if (typeof queryString !== "undefined") {
     [, generateValue] = queryString.split("=");
+    generate = generateValue === "true";
   }
   let forceCache /*: boolean */ = false;
-  if (generateValue === "true") {
+  if (generate === true) {
     forceCache = true;
   }
   if (urlPath.match(/.+\..+$/) !== null) {
@@ -48,13 +50,13 @@ const requestHandler = (req, res) => {
       // console.log("Cache: ", urlPath);
       res.end(output);
     } else {
-      const output = renderToString(urlPath);
+      const output = renderToString(urlPath, generate);
       staticCache.writeToCache(urlPath, output);
       // console.log("Rendered: ", urlPath);
       res.end(output);
     }
   } else {
-    const output = renderToString(urlPath);
+    const output = renderToString(urlPath, generate);
     if (forceCache === true) {
       staticCache.writeToCache(urlPath, output);
       // console.log("Cached: ", urlPath);
@@ -64,12 +66,15 @@ const requestHandler = (req, res) => {
   }
 };
 
-const renderToString = (url /*: string */) /*: string */ => {
+const renderToString = (
+  url /*: string */,
+  generate /*: boolean */,
+) /*: string */ => {
   const index /*: string */ = fs.readFileSync("./index.html", "utf8");
   let renderedContent = index;
 
   // Server-side rendering
-  if (conf.NODE_ENV !== "development") {
+  if (conf.NODE_ENV !== "development" || generate === true) {
     // [1] Swap the placeholder copy with the rendered output
     const gtStartElement = `<${goodthingElement} id="goodthing" data-goodthing>`;
     const gtStartElementRe = `<${goodthingElement} id="goodthing" data-goodthing>`;

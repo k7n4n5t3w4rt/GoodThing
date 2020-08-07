@@ -1,6 +1,10 @@
 // @flow
 import { h, render } from "../web_modules/preact.js";
-import { useContext } from "../web_modules/preact/hooks.js";
+import {
+  useContext,
+  useEffect,
+  useState,
+} from "../web_modules/preact/hooks.js";
 import htm from "../web_modules/htm.js";
 import {
   rawStyles,
@@ -54,11 +58,19 @@ const [styles] = createStyles({
 
 /*::
 type Props = {
-  count: typeof Number
+  count: number | typeof undefined
 };
 */
 const Counter = (props /*: Props */) => {
   const [state /*: AppState */, setState] = useContext(AppContext);
+  const [count /*: number */, setCount] = useState(props.count);
+
+  useEffect(() => {
+    if (typeof state.count !== "undefined") {
+      setCount(state.count);
+    }
+  });
+
   // console.log(props.count.isInteger());
   return html`
     <div className="${styles.container}">
@@ -67,7 +79,7 @@ const Counter = (props /*: Props */) => {
         No build step.
       </h1>
       <div>
-        <h2 className="${styles.counter}">${state.count}</h2>
+        <h2 className="${styles.counter}">${count}</h2>
         <button
           className="${styles.buttons}"
           onClick=${(e) => {

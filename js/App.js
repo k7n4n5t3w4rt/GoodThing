@@ -15,7 +15,7 @@ const App /*: function */ = (props /*: Props */) => {
   return html`
     <${AppProvider} >
       <${Router} url="${props.url}">
-        <${Counter} count="0" path="/" />
+        <${Counter} count="1" path="/" />
         <${Counter} count="6" path="/this/is/a/test/of/the/cache/script" />
       </${Router}>
     </${AppProvider} >
