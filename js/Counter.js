@@ -74,28 +74,32 @@ const Counter = (props /*: Props */) => {
   // console.log(props.count.isInteger());
   return html`
     <div className="${styles.container}">
-      <h1 className="${styles.heading}">
-        No script tags.<br />
+      <h1 data-cy="heading" className="${styles.heading}">
         No build step.
       </h1>
+      <h2 data-cy="subheading" className="${styles.heading}">
+        No script tags
+      </h2>
       <div>
-        <h2 className="${styles.counter}">${count}</h2>
+        <h2 data-cy="number-display" className="${styles.counter}">${count}</h2>
         <button
+          data-cy="minus"
           className="${styles.buttons}"
           onClick=${(e) => {
-            let count = state.count || 1;
-            count--;
-            setState({ ...state, ...{ count } });
+            let localCount = state.count || count;
+            localCount--;
+            setState({ ...state, ...{ count: localCount } });
           }}
         >
           -
         </button>
         <button
+          data-cy="plus"
           className="${styles.buttons}"
           onClick=${(e) => {
-            let count = state.count || 1;
-            count++;
-            setState({ ...state, ...{ count } });
+            let localCount = state.count || count;
+            localCount++;
+            setState({ ...state, ...{ count: localCount } });
           }}
         >
           +
