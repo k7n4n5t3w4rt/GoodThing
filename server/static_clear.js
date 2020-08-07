@@ -1,9 +1,4 @@
 // @flow
-import { clearCache } from "./static.js";
-/*::
-import {
-  clearCache as ClearCacheType,
-} from "./static.js";
-*/
+import staticCache from "./static_cache.js";
 
-clearCache();
+staticCache.clearCache();

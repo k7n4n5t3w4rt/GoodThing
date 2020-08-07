@@ -8,7 +8,7 @@ import { h } from "../web_modules/preact.js";
 import htm from "../web_modules/htm.js";
 import render from "../web_modules/preact-render-to-string.js";
 import App from "../js/App.js";
-import { readFromCache, writeToCache } from "./static.js";
+import staticCache from "./static_cache.js";
 import {
   goodthingElement,
   cacheTtl,
@@ -43,20 +43,20 @@ const requestHandler = (req, res) => {
     forceCache === false &&
     appPaths().indexOf(urlPath) !== -1
   ) {
-    const output = readFromCache(urlPath, cacheTtl);
+    const output = staticCache.readFromCache(urlPath, cacheTtl);
     if (output !== false) {
       // console.log("Cache: ", urlPath);
       res.end(output);
     } else {
       const output = renderToString(urlPath);
-      writeToCache(urlPath, output);
+      staticCache.writeToCache(urlPath, output);
       // console.log("Rendered: ", urlPath);
       res.end(output);
     }
   } else {
     const output = renderToString(urlPath);
     if (forceCache === true) {
-      writeToCache(urlPath, output);
+      staticCache.writeToCache(urlPath, output);
       // console.log("Cached: ", urlPath);
     }
     // console.log("Rendered: ", urlPath);

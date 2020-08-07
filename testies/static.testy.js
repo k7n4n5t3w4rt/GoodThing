@@ -1,11 +1,11 @@
 // @flow
 import { test, testPromise, should } from "../server/testy.js";
-import staticCache from "../server/static.js";
+import staticCache from "../server/static_cache.js";
 import requestPromise from "../server/request_promise.js";
 import fs, { read } from "fs";
 
 test("Cache | Clearing the cache", () /*: void */ => {
-  should(clearCache()).be.exactly(true);
+  should(staticCache.clearCache()).be.exactly(true);
 });
 
 testPromise(

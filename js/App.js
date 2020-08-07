@@ -8,6 +8,7 @@ const html = htm.bind(h);
 
 /*::
 type Props = {
+  url: string
 };
 */
 const App /*: function */ = (props /*: Props */) => {
