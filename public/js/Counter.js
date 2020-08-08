@@ -62,7 +62,7 @@ type Props = {
 };
 */
 const Counter = (props /*: Props */) => {
-  const [state /*: AppState */, setState] = useContext(AppContext);
+  const [state /*: AppState */, dispatch] = useContext(AppContext);
   const [count /*: number */, setCount] = useState(props.count);
 
   useEffect(() => {
@@ -86,9 +86,7 @@ const Counter = (props /*: Props */) => {
           data-cy="minus"
           className="${styles.buttons}"
           onClick=${(e) => {
-            let localCount = state.count || count;
-            localCount--;
-            setState({ ...state, ...{ count: localCount } });
+            dispatch({ type: "subtract", payload: count });
           }}
         >
           -
@@ -97,9 +95,7 @@ const Counter = (props /*: Props */) => {
           data-cy="plus"
           className="${styles.buttons}"
           onClick=${(e) => {
-            let localCount = state.count || count;
-            localCount++;
-            setState({ ...state, ...{ count: localCount } });
+            dispatch({ type: "add", payload: count });
           }}
         >
           +

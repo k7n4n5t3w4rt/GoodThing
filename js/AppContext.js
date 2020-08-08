@@ -1,7 +1,7 @@
 // @flow
 import conf from "./config.js";
 import { h, render, createContext } from "../web_modules/preact.js";
-import { useState } from "../web_modules/preact/hooks.js";
+import { useReducer } from "../web_modules/preact/hooks.js";
 import htm from "../web_modules/htm.js";
 import stateStorage from "./state_storage.js";
 import Router from "../web_modules/preact-router.js";
@@ -13,13 +13,30 @@ const html = htm.bind(h);
 // A context for the state global management
 const AppContext = createContext([{}, () => {}]);
 
+const reducer = (state, action) => {
+  let count /*: number */;
+  if (action.type == "add") {
+    count = state.count || action.payload;
+    count++;
+    return { ...state, ...{ count } };
+  }
+  if (action.type == "subtract") {
+    count = state.count || action.payload;
+    count--;
+    return { ...state, ...{ count } };
+  }
+  if (action.type == "reset") {
+    return { ...action.payload };
+  }
+};
+
 /*::
 type Props = {
 	children: Array<function>;
 };
 */
 const AppProvider /*: function */ = (props /*: Props */) => {
-  const [state /*: AppState */, setState /*: function */] = useState({});
+  const [state, dispatch] = useReducer(reducer, {});
 
   // Browser only
   if (typeof process === "undefined" || process.release.name !== "node") {
@@ -52,7 +69,7 @@ const AppProvider /*: function */ = (props /*: Props */) => {
         // The string coming from sessionStateStorage might
         // not be JSON.
         try {
-          setState({ ...state, ...JSON.parse(sessionStateString) });
+          dispatch({ type: "reset", payload: JSON.parse(sessionStateString) });
         } catch (e) {
           stateStorage.clear(state.rememberme);
         }
@@ -61,12 +78,12 @@ const AppProvider /*: function */ = (props /*: Props */) => {
 
     if (JSON.stringify(state) !== JSON.stringify({})) {
       // Store the state in stateStorage on every render-loop
-      stateStorage.setItem("state", JSON.stringify(state), state.rememberme);
+      stateStorage.setItem("state", JSON.stringify(state), conf.REMEMBER_ME);
     }
   }
 
   return html`
-      <${AppContext.Provider} value=${[state, setState]}>
+      <${AppContext.Provider} value=${[state, dispatch]}>
 				${props.children}
       </${AppContext.Provider}>
   `;
