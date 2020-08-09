@@ -5,8 +5,6 @@ import { useReducer } from "../web_modules/preact/hooks.js";
 import htm from "../web_modules/htm.js";
 import stateStorage from "./state_storage.js";
 import Router from "../web_modules/preact-router.js";
-import { createHashHistory } from "../web_modules/history.js";
-import { createBrowserHistory } from "../web_modules/history.js";
 
 const html = htm.bind(h);
 

@@ -2,7 +2,7 @@
 
 context("Actions", () => {
   beforeEach(() => {
-    cy.visit("http://localhost:3000/this/is/a/test/of/the/cache/script");
+    cy.visit("http://localhost:4000/this/is/a/test/of/the/cache/script");
   });
   afterEach(() => {
     sessionStorage.clear();

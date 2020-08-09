@@ -49,6 +49,15 @@ NOTE: Ctrl+C will stop the NodeJS server.
 
 [6] Test
 
+
+Start the server:
+
+```
+npm start
+````
+
+Then:
+
 ```
 npm run test
 ```
