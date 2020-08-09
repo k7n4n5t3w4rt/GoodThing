@@ -1,6 +1,6 @@
 # GoodThing
 
-No WebPack. No compiling during development.
+Preact static website generator boilerplate. No WebPack. No compiling during development.
 
 ## Getting Started
 
@@ -28,6 +28,12 @@ npm i
 npm run snowpack
 ```
 
+NOTE: Currently you need to remove this line from `package.json` before running `npm run snowpack` - and then restore the line to `package.json`.
+
+```
+"type": "module"
+```
+
 [5] Preview your site dynamically at <http://localhost:4000> during development
 
 ```
@@ -42,16 +48,28 @@ NOTE: Ctrl+C will stop the NodeJS server.
 npm run test
 ```
 
+NOTE: Install Cypress with:
+
+```
+npx cypress install
+```
+
 [7] Code (or don't if you're just trying it out)
 
 ```
-Your code here.
+...
 ```
 
 [8] Generate your static site in the `/public` folder for GitHub pages, S3, etc.
 
 ```
 npm run generate
+```
+
+For [GitHub Pages](https://pages.github.com/), duplicate the `public` directory as `docs`:
+
+```
+npm run github-pages
 ```
 
 [9] Test it locally on port :3000 with Browsersync

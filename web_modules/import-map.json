@@ -1,7 +1,6 @@
 {
   "imports": {
     "@prefresh/core": "./@prefresh/core.js",
-    "history": "./history.js",
     "htm": "./htm.js",
     "preact": "./preact.js",
     "preact-render-to-string": "./preact-render-to-string.js",
