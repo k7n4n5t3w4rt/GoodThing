@@ -1,6 +1,11 @@
 # GoodThing
 
-Preact static website generator boilerplate. No WebPack. No compiling during development.
+Preact static website generator boilerplate.
+
+  - No WebPack
+  - No compiling during development
+  - Global, Redux-like state store with `useReducer` and `Context`
+  - Cypress
 
 ## Getting Started
 
@@ -66,12 +71,6 @@ npx cypress install
 npm run generate
 ```
 
-For [GitHub Pages](https://pages.github.com/), duplicate the `public` directory as `docs`:
-
-```
-npm run github-pages
-```
-
 [9] Test it locally on port :3000 with Browsersync
 
 ```
@@ -80,7 +79,13 @@ npm run browsersync
 
 [10] `git init` etc. and push your code up to GitHub or somewhere with great, free hosting for static sites.
 
-[11] When you change your `<Routes>`, clean up your static files
+For [GitHub Pages](https://pages.github.com/), duplicate the `public` directory as `docs`:
+
+```
+npm run github-pages
+```
+
+[11] Clean up your static files
 
 ```
 npm run ungenerate
@@ -131,5 +136,5 @@ import htm from '../web_modules/htm.js'
 
 ## To Do
 
-[1] A production build with Snowpack2
-[2] The "Testy" test runner needs an "only" option
+  1. A production build with Snowpack2
+  2. The "Testy" test runner needs an "only" option
