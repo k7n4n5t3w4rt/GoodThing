@@ -50,7 +50,7 @@
     "generate:clear": "node --no-warnings server/static_clear.js",
     "generate": "node --no-warnings server/static_generate_run.js",
     "generate:run": "npm run generate && npm run browsersync",
-    "github-pages": "mv public docs && mkdir public",
+    "github-pages": "rm -rf docs && mv public docs && mkdir public",
     "lint": "prettier --check \"src/**/*.{js,jsx}\"",
     "snowpack": "snowpack install",
     "start": "node server/index.js",

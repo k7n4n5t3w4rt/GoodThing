@@ -13,17 +13,17 @@ const AppContext = createContext([{}, () => {}]);
 
 const reducer = (state, action) => {
   let count /*: number */;
-  if (action.type == "add") {
+  if (action.type === "add") {
     count = state.count || action.payload;
     count++;
     return { ...state, ...{ count } };
   }
-  if (action.type == "subtract") {
+  if (action.type === "subtract") {
     count = state.count || action.payload;
     count--;
     return { ...state, ...{ count } };
   }
-  if (action.type == "reset") {
+  if (action.type === "reset") {
     return { ...action.payload };
   }
 };
