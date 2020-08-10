@@ -2,6 +2,7 @@
   "imports": {
     "@prefresh/core": "./@prefresh/core.js",
     "htm": "./htm.js",
+    "immer": "./immer.js",
     "preact": "./preact.js",
     "preact-render-to-string": "./preact-render-to-string.js",
     "preact-router": "./preact-router.js",

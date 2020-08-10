@@ -3,6 +3,7 @@ import conf from "./config.js";
 import { h, render, createContext } from "../web_modules/preact.js";
 import { useReducer } from "../web_modules/preact/hooks.js";
 import htm from "../web_modules/htm.js";
+import produce from "../web_modules/immer.js";
 import stateStorage from "./state_storage.js";
 import Router from "../web_modules/preact-router.js";
 
@@ -11,22 +12,24 @@ const html = htm.bind(h);
 // A context for the state global management
 const AppContext = createContext([{}, () => {}]);
 
-const reducer = (state, action) => {
-  let count /*: number */;
-  if (action.type === "add") {
-    count = state.count || action.payload;
-    count++;
-    return { ...state, ...{ count } };
-  }
-  if (action.type === "subtract") {
-    count = state.count || action.payload;
-    count--;
-    return { ...state, ...{ count } };
-  }
-  if (action.type === "reset") {
-    return { ...action.payload };
-  }
-};
+const reducer = (state, action) =>
+  // https://www.pika.dev/npm/@vve/immer
+  produce(state, (draft) => {
+    let count /*: number */;
+    if (action.type === "add") {
+      count = state.count || action.payload;
+      count++;
+      draft.count = count;
+    }
+    if (action.type === "subtract") {
+      count = state.count || action.payload;
+      count--;
+      draft.count = count;
+    }
+    if (action.type === "reset") {
+      draft.count = action.payload.count;
+    }
+  });
 
 /*::
 type Props = {

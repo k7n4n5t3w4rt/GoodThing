@@ -7,6 +7,7 @@ module.exports = {
   exclude: ["**/*"],
   install: [
     "htm",
+    "immer",
     "preact",
     "preact/hooks",
     "preact-render-to-string",

@@ -2,6 +2,10 @@ declare module "finalhandler" {
   declare module.exports: any;
 }
 
+declare module "../web_modules/immer.js" {
+  declare module.exports: any;
+}
+
 declare module "../web_modules/preact.js" {
   declare module.exports: any;
 }
