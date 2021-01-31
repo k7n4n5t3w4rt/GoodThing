@@ -33,7 +33,7 @@
     "wait-on": "^5.1.0"
   },
   "scripts": {
-    "browsersync": "browser-sync start --server 'public'",
+    "browsersync": "cd public && browser-sync start --server",
     "browsersync:proxy": "browser-sync start --proxy 'localhost:4000' --files \".\"",
     "build": "snowpack build",
     "cypress:open": "cypress open",
@@ -52,8 +52,9 @@
     "generate": "node --no-warnings server/static_generate_run.js",
     "generate:run": "npm run generate && npm run browsersync",
     "github-pages": "mv docs/CNAME ./ && rm -rf docs && mv public docs && mkdir public && mv CNAME docs/",
-    "lint": "prettier --check \"src/**/*.{js,jsx}\"",
-    "snowpack": "snowpack install",
+	"lint": "prettier --check \"src/**/*.{js,jsx}\"",
+	"snowpack:underscore-fix": "grep -r -l _commonjsHelpers web_modules | xargs sed -i '' s/_commonjsHelpers/commonjshelpers/g $i && mv web_modules/common/_commonjsHelpers-1d2f7e84.js web_modules/common/commonjshelpers-1d2f7e84.js",
+	"snowpack": "snowpack install",
     "start": "node server/index.js",
     "start:dev": "node -r dotenv/config server/index.js",
     "start:wait-on": "npm start & wait-on http://localhost:4000",
