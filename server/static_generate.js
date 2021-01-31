@@ -24,9 +24,12 @@ export const copyStaticFiles = () /*: void */ => {
     }
   };
 
+  if (!fs.existsSync("./public")) {
+    fs.mkdirSync("./public");
+  }
   // Copy in the static files
-  fs.copyFileSync("modernizr-config.json", "./public/modernizr-config.json");
   fs.copyFileSync("404.html", "./public/404.html");
+  fs.copyFileSync("modernizr-config.json", "./public/modernizr-config.json");
   fs.copyFileSync("browserconfig.xml", "./public/browserconfig.xml");
   fs.copyFileSync("favicon.ico", "./public/favicon.ico");
   fs.copyFileSync("humans.txt", "./public/humans.txt");
