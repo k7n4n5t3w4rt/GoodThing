@@ -1,6 +1,7 @@
 {
   "imports": {
     "htm": "./htm.js",
+    "htm/preact": "./htm/preact.js",
     "immer": "./immer.js",
     "preact": "./preact.js",
     "preact-render-to-string": "./preact-render-to-string.js",

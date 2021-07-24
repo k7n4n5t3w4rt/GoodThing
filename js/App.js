@@ -2,9 +2,8 @@
 import { h } from "../web_modules/preact.js";
 import Counter from "./Counter.js";
 import Router from "../web_modules/preact-router.js";
-import htm from "../web_modules/htm.js";
+import { html } from "../web_modules/htm/preact.js";
 import { AppProvider } from "./AppContext.js";
-const html = htm.bind(h);
 
 /*::
 type Props = {

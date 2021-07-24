@@ -5,7 +5,7 @@ import {
   useEffect,
   useState,
 } from "../web_modules/preact/hooks.js";
-import htm from "../web_modules/htm.js";
+import { html } from "../web_modules/htm/preact.js";
 import {
   rawStyles,
   createStyles,
@@ -13,7 +13,6 @@ import {
 } from "../web_modules/simplestyle-js.js";
 import { AppContext } from "./AppContext.js";
 
-const html = htm.bind(h);
 const seed /*: number */ = parseInt(
   "counter".split("").reduce(
     (acc /*: string */, letter /*: string */) /*: string */ => {

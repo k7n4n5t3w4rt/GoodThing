@@ -4,6 +4,7 @@ import { install } from "esinstall";
 install(
   [
     "htm",
+    "htm/preact",
     "immer",
     "preact",
     "preact/hooks",
