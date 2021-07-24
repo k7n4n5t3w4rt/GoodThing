@@ -5,13 +5,11 @@ import fs from "fs";
 import finalHandler from "finalhandler";
 import serveStatic from "serve-static";
 import { h } from "../web_modules/preact.js";
-import htm from "../web_modules/htm.js";
+import { html } from "../web_modules/htm/preact.js";
 import render from "../web_modules/preact-render-to-string.js";
 import App from "../js/App.js";
 import staticCache from "./static_cache.js";
 import { goodthingElement, cacheTtl, appPaths } from "./static_config.js";
-// Flow
-const html = htm.bind(h);
 
 var serveAsStatic = serveStatic(".", {
   index: false,
@@ -23,18 +21,15 @@ const requestHandler = (req, res) => {
   // to `preact-router` when `/js/App.js` is being
   // rendered server-side
   const [urlPath /*: string */, queryString /*: string */] = req.url.split("?");
-  // By default, assume that we're not writing static files
   let generate /*: boolean */ = false;
   if (typeof queryString !== "undefined") {
     queryString.split("&").forEach((keyVal /*: string */) => {
       const [key, value] = keyVal.split("=");
       if (key === "generate" && value === "true") {
-        // We ARE writing static files
         generate = true;
       }
     });
   }
-  // If this is obviously a static asset - eg. "image.jpg"
   if (urlPath.match(/.+\..+$/) !== null) {
     serveAsStatic(req, res, finalHandler(req, res));
   } else {
@@ -55,6 +50,10 @@ server.listen(conf.PORT, (err) => {
 
   console.log(`server is listening on ${conf.PORT}`);
 });
+
+// ----------------------------------------------------------------------------
+// FUNCTIONS
+// ----------------------------------------------------------------------------
 
 const renderToString = (
   url /*: string */,

@@ -34,7 +34,7 @@ declare module "../web_modules/simplestyle-js.js" {
   declare module.exports: any;
 }
 
-declare module "../web_modules/htm.js" {
+declare module "../web_modules/htm/preact.js" {
   declare module.exports: any;
 }
 

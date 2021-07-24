@@ -246,6 +246,5 @@ function createStyles(rules, options) {
   if (coerced.accumulate) accumulateSheetContents(replacedSheetContents);else if (coerced.flush) flushSheetContents(replacedSheetContents);
   return [out, replacedSheetContents];
 }
-//# sourceMappingURL=simplestyle-js.esm.js.map
 
 export { createStyles, keyframes, rawStyles, registerPosthook, setSeed };
