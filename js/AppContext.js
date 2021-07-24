@@ -10,6 +10,7 @@ import Router from "../web_modules/preact-router.js";
 const html = htm.bind(h);
 
 // A context for the state global management
+// $FlowFixMe
 const AppContext = createContext([{}, () => {}]);
 
 const reducer = (state, action) =>

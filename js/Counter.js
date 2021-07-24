@@ -61,7 +61,7 @@ type Props = {
   count: number | typeof undefined
 };
 */
-const Counter = (props /*: Props */) => {
+const Counter = (props /*: Props */) /*: string */ => {
   const [state /*: AppState */, dispatch] = useContext(AppContext);
   const [count /*: number */, setCount] = useState(props.count);
 

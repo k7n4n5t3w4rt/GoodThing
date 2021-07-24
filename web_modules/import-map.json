@@ -1,6 +1,5 @@
 {
   "imports": {
-    "@prefresh/core": "./@prefresh/core.js",
     "htm": "./htm.js",
     "immer": "./immer.js",
     "preact": "./preact.js",

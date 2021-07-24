@@ -27,16 +27,10 @@ cd mysite && rm -rf .git
 npm i
 ```
 
-[4] Update the ES modules with [Snowpack](https://www.snowpack.dev/)
+[4] Update the ES modules in the `/web_modules` directory
 
 ```
-npm run snowpack
-```
-
-NOTE: Currently you need to remove this line from `package.json` before running `npm run snowpack` - and then restore the line to `package.json`.
-
-```
-"type": "module"
+npm run esinstall
 ```
 
 [5] Preview your site dynamically at <http://localhost:4000> during development
@@ -76,11 +70,13 @@ npx cypress install
 
 [8] Generate your static site in the `/public` folder for GitHub pages, S3, etc.
 
+With the server running:
+
 ```
 npm run generate
 ```
 
-[9] Test it locally on port :3000 with Browsersync
+[9] Test it locally on port :3000 with Browsersync (I hardly ever do this)
 
 ```
 npm run browsersync
@@ -97,44 +93,7 @@ npm run github-pages
 [11] Clean up your static files
 
 ```
-npm run ungenerate
-```
-
-[12] Local cache
-
-You can keep the static files updated as you access the different routes during development. This is a bit like a cache. Just change the setting in `/server/static_config.js` to something like 10 seconds
-
-```
-...
-export const cacheTtl /*: number */ = 10; // Seconds
-...
-```
-
-## Preact w/ ES Modules
-
-I'm using Preact because it already has ES modules and [Snowpack](https://www.snowpack.dev/) to copy them up to the `/web_modules` directory for accessibility from the front end.
-
-```
-  "scripts": {
-
-	...
-
-    "snowpack": "snowpack install",
-
-	...
-
-  },
-
-  ...
-
-```
-
-Importing them in the client component scripts from `/web_modules`:
-
-
-```
-import { h, render } from '../web_modules/preact.js'
-import { useState } from '../web_modules/preact/hooks.js'
+npm run generate:clear
 ```
 
 ## `htm` - "JSX-like syntax in plain JavaScript - no transpiler necessary"
@@ -145,5 +104,4 @@ import htm from '../web_modules/htm.js'
 
 ## To Do
 
-  1. A production build with Snowpack2
   2. The "Testy" test runner needs an "only" option
