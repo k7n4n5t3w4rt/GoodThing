@@ -1,5 +1,6 @@
 // @flow
 import fs from "fs";
+import { writeFileSync } from "fs";
 import path from "path";
 /*::
 import typeof FsType from "fs";
@@ -29,41 +30,16 @@ const readFromCache = (
 const writeToCache = (
   url /*: string */,
   renderedOutput /*: string */,
-) /*:  Promise<boolean> */ => {
+) /*:  boolean */ => {
   const filePath /*: string */ = `./public${url}/index.html`.replace("//", "/");
   if (!fs.existsSync(path.dirname(filePath))) {
     fs.mkdirSync(path.dirname(filePath), { recursive: true });
   }
-  return openFile(filePath)
-    .then((fd /*: number */) /*: Promise<boolean> */ => {
-      return writeFile(fd, renderedOutput)
-        .then(() /*: boolean */ => {
-          return true;
-        })
-        .catch((e /*: Error */) /*: boolean */ => {
-          console.error(e);
-          return false;
-        });
-    })
-    .catch((e /*: Error */) /*: boolean */ => {
-      console.error(e);
-      return false;
-    });
-};
-
-export const openFile = (filePath /*: string */) /*: Promise<number> */ => {
-  return new Promise((resolve, reject) /*: void */ => {
-    fs.open(filePath, "w", (
-      e /*: ?ErrnoError */,
-      fd /*: number */,
-    ) /*: void */ => {
-      if (e) {
-        reject(e);
-      } else {
-        resolve(fd);
-      }
-    });
-  });
+  fs.writeFileSync(filePath, renderedOutput);
+  console.log("File " + filePath + " was written successfully\n");
+  console.log("The written has the following contents:");
+  console.log(fs.readFileSync(filePath, "utf8"));
+  return true;
 };
 
 const writeFile = (

@@ -35,7 +35,10 @@ const requestHandler = (req, res) => {
   } else {
     const output = renderToString(urlPath, generate);
     if (generate === true) {
-      staticCache.writeToCache(urlPath, output);
+      if (!staticCache.writeToCache(urlPath, output)) {
+        console.error("There was a problem writing the static file " + urlPath);
+        process.exit(1);
+      }
     }
     res.end(output);
   }
