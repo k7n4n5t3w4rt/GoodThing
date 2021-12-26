@@ -8,6 +8,7 @@
     "preact-router": "./preact-router.js",
     "preact/hooks": "./preact/hooks.js",
     "should/as-function.js": "./should/as-function.js",
-    "simplestyle-js": "./simplestyle-js.js"
+    "simplestyle-js": "./simplestyle-js.js",
+    "three": "./three.js"
   }
 }

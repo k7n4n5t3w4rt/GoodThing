@@ -12,6 +12,7 @@ install(
     "preact-router",
     "should/as-function.js",
     "simplestyle-js",
+    "three",
   ],
   {
     polyfillNode: false,
