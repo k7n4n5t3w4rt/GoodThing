@@ -13,10 +13,11 @@ import {
 } from "../web_modules/simplestyle-js.js";
 import { AppContext } from "./AppContext.js";
 import { ARButton } from "./vendor/ARButton.js";
-import Stats from "./vendor/stats.module.js";
-import { simpleCssSeed } from "./simpleCssSeed.js";
+import simpleCssSeed from "./simple_css_seed.js";
+import createStats from "./create_stats.js";
+import setupMobileDebug from "./setup_mobile_debug.js";
 
-setSeed(simpleCssSeed("WebXR"));
+setSeed(simpleCssSeed("WebXRGLTF"));
 
 rawStyles({
   html: {
@@ -40,46 +41,10 @@ const WebXR = (props /*: Props */) /*: string */ => {
     setupMobileDebug();
 
     let camera, scene, renderer, loader;
-    let stats;
+    let stats = createStats();
 
     init();
     animate();
-
-    function createStats() {
-      stats = new Stats();
-      stats.setMode(0);
-
-      // assign css to align it properly on the page
-      stats.domElement.style.position = "absolute";
-      stats.domElement.style.left = "0";
-      stats.domElement.style.top = "0";
-    }
-
-    function setupMobileDebug() {
-      // First thing we do is setup the mobile debug console
-      // This library is very big so only use it while debugging
-      // just comment it out when your app is done
-      const containerEl = document.getElementById("console-ui");
-      if (containerEl !== undefined) {
-        // $FlowFixMe
-        eruda.init({
-          container: containerEl,
-        });
-        // $FlowFixMe
-        const devToolEl = containerEl.shadowRoot.querySelector(
-          ".eruda-dev-tools",
-        );
-        if (devToolEl !== undefined) {
-          // $FlowFixMe
-          devToolEl.style.height = "40%"; // control the height of the dev tool panel
-        }
-      }
-    }
-
-    // let i = 0;
-    // function logsForMobileDebug() {
-    //   console.log(i++);
-    // }
 
     function init() {
       // CANVAS
@@ -152,8 +117,6 @@ const WebXR = (props /*: Props */) /*: string */ => {
       // $FlowFixMe
       document.body.appendChild(button);
 
-      // add a framerate pane to the page
-      createStats();
       // $FlowFixMe
       document.body.appendChild(stats.domElement); // append the stats panel to the page
       window.addEventListener("resize", onWindowResize, false);
