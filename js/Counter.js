@@ -61,8 +61,8 @@ type Props = {
 };
 */
 const Counter = (props /*: Props */) /*: string */ => {
-  const [state /*: AppState */, dispatch] = useContext(AppContext);
-  const [count /*: number */, setCount] = useState(props.count);
+  const [state , dispatch] /*: [ { count?: number}, Function ] */= useContext(AppContext);
+  const [count , setCount] /*: [ number, Function ] */= useState(props.count);
 
   useEffect(() => {
     if (typeof state.count !== "undefined") {
