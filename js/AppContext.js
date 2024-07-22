@@ -1,17 +1,26 @@
 // @flow
-import conf from "./goodthing_actions/config.js";
+//----------------------------------------------------------------------
+// PREACT
+//----------------------------------------------------------------------
 import { h, render, createContext } from "../web_modules/preact.js";
 import { useReducer } from "../web_modules/preact/hooks.js";
-import {html} from "../web_modules/htm/preact.js";
+import Router from "../web_modules/preact-router.js";
+import { html } from "../web_modules/htm/preact.js";
+//----------------------------------------------------------------------
+// HELPERS
+//----------------------------------------------------------------------
+import conf from "./goodthing_actions/config.js";
 import produce from "../web_modules/immer.js";
 import stateStorage from "./goodthing_actions/state_storage.js";
-import Router from "../web_modules/preact-router.js";
 
 // A context for the state global management
 // $FlowFixMe
 const AppContext = createContext([{}, () => {}]);
 
-const reducer = (state, action) =>
+const reducer = (
+  state /*: { count?: number} */,
+  action /*: { type: string, payload: any } */,
+) =>
   // https://www.pika.dev/npm/@vve/immer
   produce(state, (draft) => {
     let count /*: number */;

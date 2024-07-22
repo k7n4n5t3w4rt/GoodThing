@@ -23,10 +23,12 @@ import {
 import { AppContext } from "./AppContext.js";
 
 const Counter = (props /*: {
-  count: number | typeof undefined
+  count?: number
 } */) /*: string */ => {
-  const [state , dispatch] /*: [ { count?: number}, Function ] */= useContext(AppContext);
-  const [count , setCount] /*: [ number, Function ] */= useState(props.count);
+  const [state, dispatch] /*: [ { count?: number}, Function ] */ = useContext(
+    AppContext,
+  );
+  const [count, setCount] /*: [ number, Function ] */ = useState(props.count);
 
   useEffect(() => {
     if (typeof state.count !== "undefined") {
@@ -34,7 +36,6 @@ const Counter = (props /*: {
     }
   });
 
-  // console.log(props.count.isInteger());
   return html`
     <div className="${styles.container}">
       <h1 data-cy="heading" className="${styles.heading}">
@@ -114,4 +115,3 @@ const [styles] = createStyles({
     fontSize: "2em",
   },
 });
-
