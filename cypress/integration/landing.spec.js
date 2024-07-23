@@ -13,7 +13,6 @@ context("Actions", () => {
 
   it("Route / | Renders ok", () => {
     cy.get("h1[data-cy=heading]").should("contain", "No build step");
-    cy.get("h2[data-cy=subheading]").should("contain", "No script tags");
   });
   it("Route / | Plus and minus work ok", () => {
     cy.get("button[data-cy=plus]").click();

@@ -41,9 +41,6 @@ const Counter = (props /*: {
       <h1 data-cy="heading" className="${styles.heading}">
         No build step.
       </h1>
-      <h2 data-cy="subheading" className="${styles.heading}">
-        No script tags
-      </h2>
       <div>
         <h2 data-cy="number-display" className="${styles.counter}">${count}</h2>
         <button
