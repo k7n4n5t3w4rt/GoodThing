@@ -2,7 +2,7 @@
 
 context("State/Session Storage", () => {
   beforeEach(() => {
-    cy.visit("http://localhost:4000/");
+    cy.visit("http://localhost:3000/");
     const state /*: AppState */ = {
       count: 10,
     };

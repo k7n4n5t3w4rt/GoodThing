@@ -36,7 +36,7 @@
     "format": "prettier --write \"src/**/*.{js}\"",
     "lint": "prettier --check \"src/**/*.{js}\"",
     "test": "npm run testy && npm run cypress:run",
-    "testy": "node --no-warnings server/testyrunner.js | faucet"
+    "testy": "node --no-warnings dev/testyrunner.js | faucet"
   },
   "type": "module"
 }
